@@ -1,0 +1,363 @@
+{
+    "Arch Linux": {
+        "Description": "Arch Linux in your browser! Learn more about this amazing operating system on <a href='https://archlinux.org/'>ArchLinux.org</a>",
+        "initial_state": {
+            "url": "https://storage.googleapis.com/vm-general-storage/ArchLinux/arch_state.bin"
+        },
+        "filesystem": {
+            "baseurl": "https://vm.davidfahim.repl.co/get?url=https://k.copy.sh/arch/"
+        },
+        "cmdline": [
+            "ip link set eth0 down",
+            "rmmod ne2k-pci",
+            "modprobe ne2k-pci",
+            "ip link set eth0 up",
+            "dhcpcd -w4 eth0"
+        ],
+        "acpi": false,
+        "ram": 1024,
+        "vram": 128
+    },
+    "Arch Linux2": {
+        "Description": "Arch Linux in your browser! Learn more about this amazing operating system on <a href='https://archlinux.org/'>ArchLinux.org</a>",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/Archlinux-CloudVM.img",
+            "async": true
+        },
+        "cmdline": [
+            "ip link set eth0 down",
+            "rmmod ne2k-pci",
+            "modprobe ne2k-pci",
+            "ip link set eth0 up",
+            "dhcpcd -w4 eth0"
+        ],
+        "acpi": false,
+        "ram": 1024,
+        "vram": 128
+    },
+    "Debian": {
+        "Description": "The Universal Operating System. Learn more at <a href='https://www.debian.org/'>Debian.org</a>",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/debian.iso",
+            "async": true
+        },
+        "initial_state": {
+            "url": "https://storage.googleapis.com/vm-general-storage/debian_state.bin"
+        },
+        "cmdline": [
+            "ifdown ens5",
+            "ifup ens5"
+        ],
+        "acpi": true,
+        "ram": 2048,
+        "vram": 128
+    },
+    "SkiftOS": {
+        "Description": "A hobby OS focused on user experience with a beautiful interface. Learn more at <a href='https://skiftos.org/'>SkiftOS.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/SkiftOS.iso",
+            "async": false,
+            "size": 64452608
+        }
+    },
+    "Puppy Linux": {
+        "Description": "Extremely lightweight linux distro (with a UI!). Learn more at <a href='https://puppylinux.com/'>PuppyLinux.com</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/puppyLinux.iso",
+            "async": true
+        }
+    },
+    "Buildroot Linux": {
+        "Description": "Quickly start and test a Buildroot Linux instance directly in your browser.",
+        "acpi": true,
+        "bzimage": {
+            "url": "https://storage.googleapis.com/vm-general-storage/buildroot-linux.bin",
+            "size": 5166352,
+            "async": false
+        },
+        "filesystem": {},
+        "cmdline": [
+            "udhcpc"
+        ]
+    },
+    "DSL": {
+        "Description": "Damn Small Linux in your browser! Tiny but powerful OS. Learn more at <a href='http://www.damnsmalllinux.org/'>DamnSmallLinux.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/dsl.iso",
+            "async": false
+        }
+    },
+    "Android": {
+        "Description": "Run Android in your browser.",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/android.iso",
+            "async": true
+        }
+    },
+    "LineageOS": {
+        "Description": "Run LineageOS, an open source operating system based on Android, in your browser. Learn more at <a href='https://lineageos.org/'>LineageOS.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/LineageOS.iso",
+            "async": true
+        }
+    },
+    "Slax": {
+        "Description": "Modern operating system with a clean UI. Reminds me of ChromeOS. Learn more at <a href='https://www.slax.org/'>Slax.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/slax.iso",
+            "async": true
+        }
+    },
+    "KNOPPIX": {
+        "Description": "Similar functionality to Slax. Learn more at <a href='https://www.knopper.net/knoppix/index-en.html'>Knopper.net</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/KNOPPIX.iso",
+            "async": true
+        }
+    },
+    "Slitaz": {
+        "Description": "Fast, small, and portable operating system. Booted directly from a live CD just like KNOPPIX and Slax. Learn more at <a href='https://slitaz.org/en/'>Slitaz.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/slitaz.iso",
+            "async": false
+        }
+    },
+    "Kolibri OS": {
+        "Description": "Built with assembly. Runs very fast in the browser relative to other operating systems. Learn more at <a href='https://kolibrios.org/en/'>KolibriOS.org</a>",
+        "fda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/kolibri.img",
+            "size": 1474560,
+            "async": false
+        }
+    },
+    "ReactOS": {
+        "Description": "A Windows compatible operating system. Reverse engineered to work like Windows, run .exe files, and more! Learn more at <a href='https://reactos.org/'>ReactOS.org</a>",
+        "msg": "If internet access is not working properly, open/run the 'networking.bat' file on the desktop.",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/ReactOS.img",
+            "async": true
+        },
+        "initial_state": {
+            "url": "https://storage.googleapis.com/vm-general-storage/reactos_state.bin.zst"
+        },
+        "preserve_mac_from_state_image": true,
+        "acpi": false,
+        "ram": 1024,
+        "vram": 128
+    },
+    "Linux 2.6": {
+        "Description": "Linux 2.6 kernel in your browser! Simple but powerful. Resources: <a href='https://www.linux.com/'>Linux.com</a> and <a href='https://linux.org/'>Linux.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/linux26.iso",
+            "async": false
+        }
+    },
+    "Linux 3": {
+        "Description": "Linux 3 kernel in your browser! Simple but powerful. Resources: <a href='https://www.linux.com/'>Linux.com</a> and <a href='https://linux.org/'>Linux.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/linux3.iso",
+            "async": false
+        }
+    },
+    "Linux 4": {
+        "Description": "Linux 4 kernel in your browser! Simple but powerful. Resources: <a href='https://www.linux.com/'>Linux.com</a> and <a href='https://linux.org/'>Linux.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/linux4.iso",
+            "async": false
+        },
+        "filesystem": {}
+    },
+    "FreeBSD": {
+        "Description": "Unix-like operating system for servers, desktops, and embedded platforms. Most popular Linux alternative. Learn more at <a href='https://www.freebsd.org/'>FreeBSD.org</a>",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/FreeBSD.img",
+            "async": true
+        },
+        "initial_state": {
+            "url": "https://storage.googleapis.com/vm-general-storage/freebsd_state.bin.zst"
+        },
+        "acpi": false,
+        "ram": 1024,
+        "vram": 128
+    },
+    "Alpine Linux": {
+        "Description": "Security-oriented, lightweight Linux distro based on musl libc and busybox. Learn more at <a href='https://alpinelinux.org/'>AlpineLinux.org</a>",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/alpineLinux.img",
+            "async": true
+        },
+        "msg": "You may recieve errors in the console upon booting. Alpine Linux will take a while to boot up and after the system automatically retries a few times, you should get past the errors."
+    },
+    "Tiny Core Linux": {
+        "Description": "Highly modular operating system with a lightweight graphical desktop environment. Learn more at <a href='http://www.tinycorelinux.net/'>TinyCoreLinux.net</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/TinyCore.iso",
+            "async": false
+        }
+    },
+    "QNX": {
+        "Description": "Unix-like operating system for embedded systems. Powers a lot of mobile devices. Learn more at <a href='https://blackberry.qnx.com/en'>QNX.com</a>",
+        "fda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/QNX.img",
+            "async": false,
+            "size": 1474560
+        }
+    },
+    "SolarOS": {
+        "Description": "Simple graphical and Unix operating system originally developed by Sun Microsystems and acquired by Oracle in 2010. Learn more at <a href='http://oby.ro/os/'>oby.ro/os</a>",
+        "fda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/SolarOS.img",
+            "async": false,
+            "size": 1474560
+        }
+    },
+    "Minix": {
+        "Description": "Similar to NetBSD. Learn more at <a href='https://www.minix3.org/'>Minix3.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/minix.iso",
+            "async": true,
+            "size": 605581312
+        },
+        "ram": 128,
+        "vram": 8,
+        "apci": false
+    },
+    "Fedora": {
+        "Description": "Fedora 25 Workstation Live CD. Learn more at <a href='https://getfedora.org/'>GetFedora.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/fedora.iso",
+            "async": true
+        }
+    },
+    "openSUSE": {
+        "Description": "Great operating system for developers and sysadmins. Learn more at <a href='https://www.opensuse.org/'>openSUSE.org</a>"
+    },
+    "NixOS": {
+        "Description": "Reproducible, Declarative, and Reliable Linux Distro. Learn more at <a href='https://nixos.org/'>NixOS.org</a>"
+    },
+    "Lakka": {
+        "Description": "Lightweight retrogaming console built on top of Linux. Learn more at <a href='https://www.lakka.tv/'>Lakka.tv</a>"
+    },
+    "Linux Mint": {
+        "Description": "Lightweight retrogaming console built on top of Linux. Learn more at <a href='https://www.lakka.tv/'>Lakka.tv</a>"
+    },
+    "Ubuntu": {
+        "Description": "Lightweight retrogaming console built on top of Linux. Learn more at <a href='https://www.lakka.tv/'>Lakka.tv</a>"
+    },
+    "OberonOS": {
+        "Description": "Complete desktop computer from scratch. Learn more at <a href='http://www.projectoberon.com/'>ProjectOberon.com</a>",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/OberonOS.img",
+            "async": false
+        }
+    },
+    "Windows XP": {
+        "Description": "Windows XP Professional Edition in your browser. Easily boot into a very iconic, nostalgia-inducing, and beloved operating system."
+    },
+    "Windows Vista": {
+        "Description": "It isn't as bad as Windows ME. It is still, however, quite a horrible operating system.",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/vista.img",
+            "async": true
+        }
+    },
+    "Windows 7": {
+        "Description": "Easily start Windows 7, one of the more well known operating systems on this list."
+    },
+    "Windows 8": {
+        "Description": "Windows 8..... EWWWWWWWWW"
+    },
+    "MSDOS": {
+        "Description": "The Windows command line in your browser.",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/msdos.img",
+            "size": 8388608,
+            "async": false
+        }
+    },
+    "Windows 1.0": {
+        "Description": "Try out the first Windows graphical operating system.",
+        "fda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/Windows1.img",
+            "size": 1474560,
+            "async": false
+        }
+    },
+    "Windows 3.1": {
+        "Description": "Try out one of the first Windows graphical operating systems.",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/Windows31.img",
+            "size": 34463744,
+            "async": false
+        }
+    },
+    "Windows 95": {
+        "Description": "Travel back to 1995 in one of the earlier Windows releases.",
+        "msg": "If internet access is not working properly, open/run the 'networking.bat' file on the desktop.",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/Windows95.img",
+            "async": true
+        },
+        "initial_state": {
+            "url": "https://storage.googleapis.com/vm-general-storage/windows95_state.bin.zst"
+        },
+        "acpi": false,
+        "ram": 512,
+        "vram": 128
+    },
+    "Windows 98": {
+        "Description": "Travel back to 1998 in one of the earlier Windows releases.",
+        "msg": "If internet access is not working properly, open/run the 'networking.bat' file on the desktop.",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/Windows98.img",
+            "async": true
+        },
+        "initial_state": {
+            "url": "https://storage.googleapis.com/vm-general-storage/windows98_state.bin.zst"
+        },
+        "preserve_mac_from_state_image": true,
+        "acpi": false,
+        "ram": 1024,
+        "vram": 128
+    },
+    "Windows 2000": {
+        "Description": "Travel back to 'the turn of the 21st century' in one of the earlier Windows releases.",
+        "msg": "If internet access is not working properly, open/run the 'networking.bat' file on the desktop.",
+        "hda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/Windows2000.img",
+            "async": true
+        },
+        "initial_state": {
+            "url": "https://storage.googleapis.com/vm-general-storage/windows2k_state.bin.zst"
+        },
+        "preserve_mac_from_state_image": true,
+        "acpi": false,
+        "ram": 1024,
+        "vram": 128
+    },
+    "Windows ME": {
+        "Description": "Try out one of the most notoriously buggy operating systems in existence. Windows ME or Millenium Edition (or as I like to call it: 'Windows Mistake Edition') is known to be 'one of the worst operating systems of all time'."
+    },
+    "Hiren Boot CD": {
+        "Description": "Live CD for Windows XP",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/HirenCD.iso",
+            "async": true
+        }
+    },
+    "Floppy Bird": {
+        "Description": "Flappy bird on floppy disk.",
+        "msg": "Press W or SPACE on your keyboard to start the game and control the bird. Press W or SPACE again to restart the game.",
+        "fda": {
+            "url": "https://storage.googleapis.com/vm-general-storage/floppybird.img",
+            "async": false,
+            "size": 1474560
+        }
+    },
+    "PortableMC": {
+        "Description": "Minecraft Java in your browser!"
+    },
+    "Custom": {
+        "Description": "Must be a 32-bit i686 Pentium 3 compatible OS. More configuration is needed for custom VMs below."
+    }
+}

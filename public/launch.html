@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html translate="no">
+
+<head>
+	<title>Loading...</title>
+
+	<script src="/build/libv86.js">
+
+	</script>
+	<link rel="icon" href="cloudVM.png" type="image/png">
+	<link rel="stylesheet" href="v86.css">
+	<link rel="stylesheet" href="main.css">
+	<script src="launch.js">
+
+	</script>
+    <script src="pwaInstall.js">
+
+	</script>
+	<script src="v86util.js">
+
+	</script>
+	<meta name="google" content="notranslate">
+</head>
+
+<body>
+	<button onclick="window.open('https://vm.davidfahim.repl.co/', '_top')">< Return</button>
+	<input id="save_file" type="button" value="Save VM State to File">
+    Restore from file: <input id="restore_file" type="file" accept=".bin">
+    <input type="button" value="Take screenshot (only graphic modes)" id="take_screenshot">
+    <button onclick="fullscreen()">Fullscreen</button>
+    <button onclick="emulator.restart()">Reboot VM</button>
+    <button onclick="memDump()">Memory Dump</button>
+    <span style="cursor:default">&nbsp;&nbsp;Scale:</span>
+    <input type="number" id="scale" value="1.0" min="0.25" step="0.25" style="width: 50px"></input>
+    <button id="emulatorPause" onclick="togglePause()">Pause Emulator</button>
+    <button id="alttab">Send Alt-Tab</button>
+    <button id="ctrlaltdel">Send Ctrl-Alt-Del</button>
+    <br>
+    <br>
+    <input type="button" style="display:none" value="Get floppy image" id="get_fda_image">
+    <input type="button" style="display:none" value="Get second floppy image" id="get_fdb_image">
+    <input type="button" style="display:none" value="Get hard disk image" id="get_hda_image">
+    <input type="button" style="display:none" value="Get second hard disk image" id="get_hdb_image">
+    <input type="button" style="display:none" value="Get cdrom image" id="get_cdrom_image">
+    <hr>
+    <pre style="display: none" id="loading"></pre>
+    <div id="vmStartBTN" style="display: none">
+      <button onclick="startVM()">&#9658;&nbsp;Start VM</button>
+      <br>
+    </div>
+    <div id="osGUI" style="float:left">
+      <div id="osTerminal" style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+      <canvas id="osDisplay" style="display: none"></canvas>
+      <div style="position: absolute; top: 0; z-index: 10">
+        <textarea class="phone_keyboard"></textarea>
+      </div>
+    </div>
+    <div class="loader" id="loader"></div>
+    <span style="display:inline;float:left;cursor:default">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <div id="runtime_infos" style="display: inline">
+    Running: <span id="running_time">0s</span> <br>
+    Speed: <span id="speed">0</span> mIPS<br>
+    Avg speed: <span id="avg_speed">0</span> mIPS<br>
+    <br>
+    <div id="info_storage" style="display: none">
+        <b>IDE device (HDA or CDROM)</b><br>
+        Sectors read: <span id="info_storage_sectors_read">0</span><br>
+        Bytes read: <span id="info_storage_bytes_read">0</span><br>
+        Sectors written: <span id="info_storage_sectors_written">0</span><br>
+        Bytes written: <span id="info_storage_bytes_written">0</span><br>
+        Status: <span id="info_storage_status"></span><br>
+        <br>
+    </div>
+    <div id="info_filesystem" style="display: none">
+        <b>9p Filesystem</b><br>
+        Bytes read: <span id="info_filesystem_bytes_read">0</span><br>
+        Bytes written: <span id="info_filesystem_bytes_written">0</span><br>
+        <div style="white-space: nowrap; overflow-x: hidden">Last file: <span id="info_filesystem_last_file"></span></div>
+        Status: <span id="info_filesystem_status"></span><br>
+        <br>
+    </div>
+    <div id="info_network" style="display: none">
+        <b>Network</b><br>
+        Bytes received: <span id="info_network_bytes_received">0</span><br>
+        Bytes transmitted: <span id="info_network_bytes_transmitted">0</span><br>
+        <br>
+    </div>
+    <b>VGA</b><br>
+    Mode: <span id="info_vga_mode"></span><br>
+    Resolution: <span id="info_res">-</span><br>
+    BPP: <span id="info_bpp">-</span><br>
+    <br>
+    Mouse: <span id="info_mouse_enabled">No</span><br>
+
+    <div id="description" style="display: none"><br></div>
+</div>
+<div id="filesystem_panel" style="display: none">
+    <label>
+        Send files to emulator in /mnt/<br>
+        <input type="file" id="filesystem_send_file" multiple>
+    </label>
+    <br><br>
+    <label>
+        Get file from emulator<br>
+        <input type="text" id="filesystem_get_file" placeholder="Absolute path">
+    </label>
+</div>
+<label id="change_fda" style="display: none">
+    Change floppy:
+    <input type="file">
+</label>
+<label id="change_cdrom" style="display: none">
+    Change CD:
+    <input type="file">
+</label>
+<div style="clear: both"></div>
+<br>
+<span style="font-family:Verdana;color:white;font-size:120%" id="vmDescription"></span>
+<br>
+<div>
+    <span style="cursor:default;color:red;font-weight:bold" id="cmdline2"></span>
+    <br>
+    <span style="cursor:default" id="cmdline"></span>
+</div>
+<br>
+<div id="terminal"></div>
+<center>
+<br>
+<br>
+<br>
+<span style="font-family:Verdana;color:white;font-size:140%">Created by <a href="https://www.davidfahim.com/">David Fahim</a> with <a href="https://github.com/copy/v86">v86</a></span>
+</center>
+</body>
+
+</html>

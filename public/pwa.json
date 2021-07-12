@@ -1,0 +1,31 @@
+{
+  "short_name": "CloudVM",
+  "name": "CloudVM: 32-bit Virtual Machine Emulator",
+  "icons": [
+    {
+      "src": "/images/cloudVM.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/cloudVM.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/?start=pwa",
+  "background_color": "#0500a3",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#0500a3",
+  "shortcuts": [
+    {
+      "name": "VM Launchpad",
+      "short_name": "Start VM",
+      "description": "Launch a virtual machine",
+      "url": "/",
+      "icons": [{ "src": "/cloudVM.png", "sizes": "192x192" }]
+    }
+  ],
+  "description": "Launch a 32-bit virtual machine directly in your browser! Linux, Windows, and more!",
+}

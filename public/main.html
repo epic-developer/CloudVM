@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>CloudVM Launcher</title>
+	<link rel="stylesheet" href="main.css">
+	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+	<link rel="icon" href="cloudVM.png" type="image/png">
+	<script src="main.js">
+
+	</script>
+    <script src="pwaInstall.js">
+
+	</script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Launch a 32-bit virtual machine directly in your browser! Linux, Windows, and more!">
+	<meta name="keywords" content="Virtual Machines, VM, Virtualization, Emulation, OS, Operating System">
+	<meta name="author" content="David Fahim">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+</head>
+
+<body bgcolor="#00000" style="padding-left:5%;padding-right:5%">
+	<center>
+		<span style="font-family:Orbitron;color:white;font-size:240%">CloudVM: VM Launchpad</span>
+    <br>
+    <span style="font-family:Orbitron;color:lime;font-size:120%">Launch a 32-bit virtual machine directly in your browser using WebAssembly, Rust, C, SeaBIOS (QEMU uses this too), and JavaScript. ACPI is enabled by default, but is experimental and works on most emulators. A network relay is preset to enable internet access. The network drivers required by CloudVM work in most VMs (but not all). If the internet is not working, the VM may not support it or there was an error during the boot process. Try refreshing the page to restart the emulator. Audio is officially supported.</span>
+    <br>
+    <span style="font-family:Verdana;color:white;font-size:100%">You may experience incompatibility with certain browsers and devices. Official compatibility is maintained for Google Chrome desktop. Try opening multiple windows side by side and run multiple VMs "simultaneously"!</span>
+    <br>
+    <span style="font-family:Verdana;color:white;font-size:80%">If you are experiencing long load times, try leaving all of the default options enabled when launching a VM. Download a <b>save state</b> on the virtual machine emulator page. You can upload this <b>save state</b> at any time to resume right from where you left off (also skipping over the boot process). The virtual machine in the <b>save state</b> and the virtual machine the <a>save state</a> is being restored to have to use the same operating system and have the same amount RAM.</span>
+    <br>
+    <span style="font-family:Verdana;color:white;font-size:100%">Some VMs, even if they are marked as "ULTRAFAST" may take some time to boot up. The speed rating in the brackets <b>[]</b> indicates how fast the VM will be after booting up. Some VMs will remain without a speed rating.</span>
+    <br>
+    <br>
+    <span style="font-family:Verdana;color:white;font-size:120%">If any of the VMs request login credentials, the username is <b>root</b> the password is either <b>root</b> or <b>toor</b>, depending on the VM.</span>
+		<div style="padding-left:10%;padding-right:10%">
+      <br>
+      <hr>
+      <br>
+      <span style="font-family:Orbitron;color:lime;font-size:180%">Virtual Machine Configuration</span>
+      <br>
+      <br>
+      <div>
+        <span style="font-family:Orbitron;color:white;font-size:140%;vertical-align:middle">ACPI Enabled (Beta): </span>
+        <label class="switch" style="vertical-align:middle">
+          <input id="acpiEnabled" type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+        <span style="font-family:Orbitron;color:red;font-size:120%;vertical-align:middle">(Disable if you are experiencing issues loading VMs)</span>
+      </div>
+      <div>
+          <span style="font-family:Orbitron;color:white;font-size:140%;vertical-align:middle">Asynchronous Disk Read/Writes:</span>
+          <br>
+        <span style="font-family:Orbitron;color:white;font-size:140%;vertical-align:middle">Prefer Speed Over Loading Time (Loads entire disk before launching VM)</span>
+        <label class="switch" style="vertical-align:middle">
+          <input id="asyncEnabled" type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+        <span style="font-family:Orbitron;color:white;font-size:140%;vertical-align:middle">Prefer Loading Time Over Speed (Async disk read/writes)</span>
+      </div>
+      <br>
+      <br>
+    <br>
+    <br>
+    <div>
+      <span style="font-family:Orbitron;color:white;font-size:100%">Network Relay/Proxy (leave blank to disable internet access):</span>
+      <input type="text" id="relay" style="width:30%" placeholder="WSS Proxy URL" value="wss://relay.widgetry.org/">
+    </div>
+    <br>
+    <br>
+    <div>
+      <div style="width:50%;float:left">
+        <span style="font-family:Orbitron;color:white;font-size:160%">RAM (Memory; MB):</span>
+        <br>
+        <input type="number" id="ram" placeholder="Default: 2048 MB (2 GB)" value="2048" step="16" min="256" max="4095">
+      </div>
+      <div style="width:50%;float:right">
+        <span style="font-family:Orbitron;color:white;font-size:160%">VRAM (Video Memory; MB):</span>
+        <br>
+        <input type="number" id="vram" placeholder="Default: 128 MB" value="128" step="8" min="8" max="256">
+      </div>
+    </div>
+    <div style="clear:both"></div>
+    <br>
+    <br>
+    <br>
+    <hr>
+    <span style="font-family:Orbitron;color:lime;font-size:180%">Launch Operating System Preset</span>
+    <br>
+    <span style="font-family:Orbitron;color:white;font-size:120%">(All 32-bit. Pentium 3 compatible. Operating systems for processors above Pentium 3 may not launch or may not operate as expected.)</span>
+    <br>
+    <span style="font-family:Verdana;color:white;font-size:120%" id="vmDetails">Hover over an operating system to see more info</span>
+    <br>
+    <button onclick="launch('Arch Linux')" onmouseover="displayDetails('Arch Linux')" onmouseleave="removeDetails()">Arch Linux</button>
+    <button onclick="launch('Debian')" onmouseover="displayDetails('Debian')" onmouseleave="removeDetails()">Debian</button>
+    <button onclick="launch('SkiftOS')" onmouseover="displayDetails('SkiftOS')" onmouseleave="removeDetails()">SkiftOS [SLOW]</button>
+    <button onclick="launch('Puppy Linux')" onmouseover="displayDetails('Puppy Linux')" onmouseleave="removeDetails()">Puppy Linux</button>
+    <button onclick="launch('Buildroot Linux')" onmouseover="displayDetails('Buildroot Linux')" onmouseleave="removeDetails()">Buildroot Linux</button>
+    <button onclick="launch('DSL')" onmouseover="displayDetails('DSL')" onmouseleave="removeDetails()">DSL [MODERATE]</button>
+    <button onclick="launch('Android')" onmouseover="displayDetails('Android')" onmouseleave="removeDetails()">Android [MODERATE]</button>
+    <br>
+    <button onclick="launch('LineageOS')" onmouseover="displayDetails('LineageOS')" onmouseleave="removeDetails()">LineageOS [SLOW]</button>
+    <button onclick="launch('Slax')" onmouseover="displayDetails('Slax')" onmouseleave="removeDetails()">Slax [SLOW]</button>
+    <button onclick="launch('KNOPPIX')" onmouseover="displayDetails('KNOPPIX')" onmouseleave="removeDetails()">KNOPPIX [MODERATE]</button>
+    <button onclick="launch('Slitaz')" onmouseover="displayDetails('Slitaz')" onmouseleave="removeDetails()">Slitaz [FAST]</button>
+    <button onclick="launch('Kolibri OS')" onmouseover="displayDetails('Kolibri OS')" onmouseleave="removeDetails()">Kolibri OS [ULTRAFAST]</button>
+    <button onclick="launch('ReactOS')" onmouseover="displayDetails('ReactOS')" onmouseleave="removeDetails()">ReactOS [MODERATE]</button>
+    <br>
+    <button onclick="launch('Linux 2.6')" onmouseover="displayDetails('Linux 2.6')" onmouseleave="removeDetails()">Linux 2.6 Kernel</button>
+    <button onclick="launch('Linux 3')" onmouseover="displayDetails('Linux 3')" onmouseleave="removeDetails()">Linux 3 Kernel</button>
+    <button onclick="launch('Linux 4')" onmouseover="displayDetails('Linux 4')" onmouseleave="removeDetails()">Linux 4 Kernel</button>
+    <button onclick="launch('FreeBSD')" onmouseover="displayDetails('FreeBSD')" onmouseleave="removeDetails()">FreeBSD</button>
+    <br>
+    <button onclick="launch('Alpine Linux')" onmouseover="displayDetails('Alpine Linux')" onmouseleave="removeDetails()">Alpine Linux [MODERATE]</button>
+    <button onclick="launch('Tiny Core Linux')" onmouseover="displayDetails('Tiny Core Linux')" onmouseleave="removeDetails()">Tiny Core Linux [ULTRAFAST]</button>
+    <button onclick="launch('QNX')" onmouseover="displayDetails('QNX')" onmouseleave="removeDetails()">QNX 4.05 [MODERATE]</button>
+    <button onclick="launch('SolarOS')" onmouseover="displayDetails('SolarOS')" onmouseleave="removeDetails()">SolarOS [ULTRAFAST]</button>
+    <button onclick="launch('Minix')" onmouseover="displayDetails('Minix')" onmouseleave="removeDetails()">Minix [MODERATE]</button>
+    <br>
+    <button onclick="launch('Fedora')" onmouseover="displayDetails('Fedora')" onmouseleave="removeDetails()">Fedora</button>
+    <div class="notAllowed">
+      <button onclick="launch('openSUSE')" class="disabled" onmouseover="displayDetails('openSUSE')" onmouseleave="removeDetails()">openSUSE (Tumbleweed)</button>
+      <button onclick="launch('NixOS')" class="disabled" onmouseover="displayDetails('NixOS')" onmouseleave="removeDetails()">NixOS</button>
+      <button onclick="launch('Lakka')" class="disabled" onmouseover="displayDetails('Lakka')" onmouseleave="removeDetails()">Lakka</button>
+      <button onclick="launch('Linux Mint')" class="disabled" onmouseover="displayDetails('Linux Mint')" onmouseleave="removeDetails()">Linux Mint</button>
+      <button onclick="launch('Ubuntu')" class="disabled" onmouseover="displayDetails('Ubuntu')" onmouseleave="removeDetails()">Lubuntu</button>
+    </div>
+    <button onclick="launch('OberonOS')" onmouseover="displayDetails('OberonOS')" onmouseleave="removeDetails()">OberonOS</button>
+    <br>
+    <div class="notAllowed">
+      <button onclick="launch('Windows XP Pro')" class="disabled" onmouseover="displayDetails('Windows XP')" onmouseleave="removeDetails()">Windows XP (Pro)</button>
+    </div>
+    <button onclick="launch('Windows Vista')" onmouseover="displayDetails('Windows Vista')" onmouseleave="removeDetails()">Windows Vista [SLOW]</button>
+    <div class="notAllowed">
+      <button class="disabled" onclick="launch('Windows 7')" onmouseover="displayDetails('Windows 7')" onmouseleave="removeDetails()">Windows 7</button>
+    </div>
+    <div class="notAllowed">
+      <button class="disabled" onclick="launch('Windows 8')" onmouseover="displayDetails('Windows 8')" onmouseleave="removeDetails()">Windows 8</button>
+    </div>
+    <br>
+    <button onclick="launch('MSDOS')" onmouseover="displayDetails('MSDOS')" onmouseleave="removeDetails()">MS-DOS 6.22</button>
+    <button onclick="launch('Windows 1.0')" onmouseover="displayDetails('Windows 1.0')" onmouseleave="removeDetails()">Windows 1.0</button>
+    <button onclick="launch('Windows 3.1')" onmouseover="displayDetails('Windows 3.1')" onmouseleave="removeDetails()">Windows 3.1</button>
+    <button onclick="launch('Windows 95')" onmouseover="displayDetails('Windows 95')" onmouseleave="removeDetails()">Windows 95 [MODERATE]</button>
+    <button onclick="launch('Windows 98')" onmouseover="displayDetails('Windows 98')" onmouseleave="removeDetails()">Windows 98 [MODERATE]</button>
+    <button onclick="launch('Windows 2000')" onmouseover="displayDetails('Windows 2000')" onmouseleave="removeDetails()">Windows 2000 [MODERATE]</button>
+    <div class="notAllowed">
+        <button onclick="launch('Windows ME')" class="disabled" onmouseover="displayDetails('Windows ME')" onmouseleave="removeDetails()">Windows ME</button>
+    </div>
+    <button onclick="launch('Hiren Boot CD')" onmouseover="displayDetails('Hiren Boot CD')" onmouseleave="removeDetails()">Hiren's Boot CD</button>
+    <br>
+    <div class="notAllowed">
+        <button onclick="launch('PortableMC')" class="disabled" onmouseover="displayDetails('PortableMC')" onmouseleave="removeDetails()">PortableMC</button>
+    </div>
+    <button onclick="launch('Floppy Bird')" onmouseover="displayDetails('Floppy Bird')" onmouseleave="removeDetails()">Floppy Bird</button>
+    <br>
+    <hr>
+    <div>
+      <br>
+      <br>
+      <span style="font-family:Orbitron;color:lime;font-size:180%">Launch Custom VM</span>
+      <br>
+    <span style="font-family:Orbitron;color:white;font-size:120%">(All 32-bit. Pentium 3 compatible. Operating systems for processors above Pentium 3 may not launch or may not operate as expected.)</span>
+      <br>
+      <span style="font-family:Orbitron;color:red;font-size:120%">If you are entering URLs, and the VM does not load, you need to install and turn on this <a href="https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf">Chrome extension</a>, which enables CORS. CORS policy enables access to the files on external web servers from your client and is disabled by default.</span>
+      <br>
+      <br>
+      <span style="font-family:Orbitron;color:red;font-size:120%">If uploading disks/CDs/drives, please <b>LEAVE THIS TAB OPEN</b>. The emulator will open in a new tab in your browser. Leave this tab open for the duration of the session or the emulator may stop working. Do not refresh this tab either.</span>
+      <div>
+      <div style="width:33%">
+        <span style="font-family:Verdana;color:white;font-size:140%">CDROM [OPTIONAL]:</span>
+        <br>
+        <input type="text" id="cd" style="width:80%" placeholder="Full URL">
+        <br>
+        <span style="font-family:Orbitron;color:lime;font-size:120%">OR</span>
+        <br>
+        <div style="background-color:white;width:80%">
+            <input type="file" id="cd_image" accept=".iso"></input>
+        </div>
+      </div>
+      <br>
+      <span style="font-family:Arial;color:white;font-size:140%;cursor:default">____________________</span>
+      <br>
+      <br>
+      <div style="width:33%">
+        <span style="font-family:Verdana;color:white;font-size:140%">Floppy Disk [OPTIONAL]:</span>
+        <br>
+        <input type="text" id="floppy" style="width:80%" placeholder="Full URL">
+        <br>
+        <span style="font-family:Orbitron;color:lime;font-size:120%">OR</span>
+        <br>
+        <div style="background-color:white;width:80%">
+            <input type="file" id="floppy_image" accept=".img"></input>
+        </div>
+      </div>
+      <br>
+      <span style="font-family:Arial;color:white;font-size:140%;cursor:default">____________________</span>
+      <br>
+      <br>
+      <div style="width:33%">
+        <span style="font-family:Verdana;color:white;font-size:140%">Hard Disk [OPTIONAL]:</span>
+        <br>
+        <input type="text" id="hd" style="width:80%" placeholder="Full URL">
+        <br>
+        <span style="font-family:Orbitron;color:lime;font-size:120%">OR</span>
+        <br>
+        <div style="background-color:white;width:80%">
+            <input type="file" id="hda_image" accept=".img"></input>
+        </div>
+      </div>
+      <br>
+      <br>
+      <button onclick="launch('Custom VM')" onmouseover="displayDetails('Custom')" onmouseleave="removeDetails()">Launch Custom VM</button>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <span style="font-family:Orbitron;color:white;font-size:140%">Created by <a href="https://www.davidfahim.com/">David Fahim</a> with <a href="https://github.com/copy/v86">v86</a></span>
+    <br>
+    <br>
+    <span style="font-family:Orbitron;color:white;font-size:140%">v86 is based on <a href="https://bellard.org/jslinux/">JSLinux</a> by Fabrice Bellard</span>
+  </center>
+</body>
+</html>
