@@ -1,3 +1,7 @@
+function createLaunchUrl() {
+  return new URL("/launch.html", window.location.origin);
+}
+
 function launch(vm) {
   var ram = Number(document.getElementById('ram').value);
   var vram = Number(document.getElementById('vram').value);
@@ -45,10 +49,27 @@ function launch(vm) {
       alert('Please configure the custom VM options by specifying at least one of the following: CDROM, Floppy Disk, HDA in the input fields below.');
       return;
     }
-    window.open('https://webvm.replit.app/launch.html?type=Custom&ram=' + String(ram) + '&vram=' + String(vram) + '&cd=' + String(cd) + '&floppy=' + String(floppy) + '&hd=' + String(hd) + '&acpi=' + String(acpiEnabled) + '&async=' + String(asyncEnabled) + '&relay=' + String(networkRelay), '_blank');
+    const launchUrl = createLaunchUrl();
+    launchUrl.searchParams.set('type', 'Custom');
+    launchUrl.searchParams.set('ram', String(ram));
+    launchUrl.searchParams.set('vram', String(vram));
+    launchUrl.searchParams.set('cd', String(cd));
+    launchUrl.searchParams.set('floppy', String(floppy));
+    launchUrl.searchParams.set('hd', String(hd));
+    launchUrl.searchParams.set('acpi', String(acpiEnabled));
+    launchUrl.searchParams.set('async', String(asyncEnabled));
+    launchUrl.searchParams.set('relay', String(networkRelay));
+    window.open(launchUrl.toString(), '_blank');
   }
   else {
-    window.location.assign('https://webvm.replit.app/launch.html?type=' + vm + '&ram=' + String(ram) + '&vram=' + String(vram) + '&acpi=' + String(acpiEnabled) + '&async=' + String(asyncEnabled) + '&relay=' + String(networkRelay));
+    const launchUrl = createLaunchUrl();
+    launchUrl.searchParams.set('type', vm);
+    launchUrl.searchParams.set('ram', String(ram));
+    launchUrl.searchParams.set('vram', String(vram));
+    launchUrl.searchParams.set('acpi', String(acpiEnabled));
+    launchUrl.searchParams.set('async', String(asyncEnabled));
+    launchUrl.searchParams.set('relay', String(networkRelay));
+    window.location.assign(launchUrl.toString());
   }
 }
 
@@ -58,6 +79,9 @@ var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
        VMs = JSON.parse(xhttp.responseText);
+       if (window.rewriteVmCatalog) {
+         VMs = window.rewriteVmCatalog(VMs);
+       }
     }
 };
 xhttp.open("GET", "VMs.json", true);

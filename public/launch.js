@@ -19,6 +19,9 @@ window.onload = function() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             VMs = JSON.parse(xhttp.responseText);
+            if (window.rewriteVmCatalog) {
+                VMs = window.rewriteVmCatalog(VMs);
+            }
             var initURL = new URL(window.location.href);
             type = initURL.searchParams.get('type');
             var ram = Number(initURL.searchParams.get('ram'));
@@ -78,7 +81,7 @@ window.onload = function() {
 
                 if (VMs[type] == null) {
                     alert(type + ' is not a valid VM. Press OK to return to the launcher.');
-                    window.open('https://webvm.repl.app/', '_top');
+                    window.open('/', '_top');
                 }
 
                 const vm = VMs[type];

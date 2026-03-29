@@ -13,6 +13,16 @@ const helmet = require('helmet');
 
 app.use(express.static('public'));
 
+app.get('/runtime-config.js', (request, response) => {
+	const runtimeConfig = {
+		vmAssetBaseUrl: process.env.VM_ASSET_BASE_URL || ''
+	};
+
+	response.type('application/javascript');
+	response.set('Cache-Control', 'no-store');
+	response.send(`window.CLOUDVM_RUNTIME_CONFIG = ${JSON.stringify(runtimeConfig)};\n`);
+});
+
 app.get('/', (request, response) => {
 	response.status(200).sendFile(__dirname + '/public/main.html');
 });
