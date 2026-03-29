@@ -15,7 +15,7 @@ app.use(express.static('public'));
 
 app.get('/runtime-config.js', (request, response) => {
 	const runtimeConfig = {
-		vmAssetBaseUrl: process.env.VM_ASSET_BASE_URL || ''
+		vmAssetBaseUrl: process.env.VM_ASSET_BASE_URL || 'https://storage.cloudvm.app'
 	};
 
 	response.type('application/javascript');
