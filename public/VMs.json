@@ -2,10 +2,10 @@
     "Arch Linux": {
         "Description": "Arch Linux in your browser! Learn more about this amazing operating system on <a href='https://archlinux.org/'>ArchLinux.org</a>",
         "initial_state": {
-            "url": "https://storage.googleapis.com/vm-general-storage/ArchLinux/arch_state.bin"
+            "url": "https://storage.googleapis.com/vm-general-storage/ArchLinux/arch_state.bin.zst"
         },
         "filesystem": {
-            "baseurl": "https://vm.davidfahim.repl.co/get?url=https://k.copy.sh/arch/"
+            "baseurl": "https://k.copy.sh/arch/"
         },
         "cmdline": [
             "ip link set eth0 down",
@@ -64,6 +64,27 @@
         "Description": "Extremely lightweight linux distro (with a UI!). Learn more at <a href='https://puppylinux.com/'>PuppyLinux.com</a>",
         "cdrom": {
             "url": "https://storage.googleapis.com/vm-general-storage/puppyLinux.iso",
+            "async": true
+        }
+    },
+    "Porteus": {
+        "Description": "<a href='http://www.porteus.org/'>Porteus.org</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/Porteus.iso",
+            "async": true
+        }
+    },
+    "antiX": {
+        "Description": "<a href='https://antixlinux.com/'>antixlinux.com</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/antiX.iso",
+            "async": true
+        }
+    },
+    "ArchBang": {
+        "Description": "<a href='https://sourceforge.net/projects/archbang/'>sourceforge.net/projects/archbang/</a>",
+        "cdrom": {
+            "url": "https://storage.googleapis.com/vm-general-storage/ArchBang.iso",
             "async": true
         }
     },

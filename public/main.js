@@ -10,8 +10,8 @@ function launch(vm) {
   if (vram < 8) {
     alert('The minimum amount of VRAM is limited to 8');
   }
-  else if (vram > 256) {
-    alert('The maximum amount of VRAM is limited to 256 MB (exceeding that limit can cause buggy and/or blank displays). 256 MB of display memory is the threshold at which the emulator display will become more slow.');
+  else if (vram > 128) {
+    alert('The maximum amount of VRAM is limited to 128 MB (exceeding that limit can cause buggy and/or blank displays). 128 MB of display memory is the threshold at which the emulator display will become more slow.');
   }
   var acpiEnabled = document.getElementById('acpiEnabled').checked;
   var asyncEnabled = document.getElementById('asyncEnabled').checked;
@@ -45,10 +45,10 @@ function launch(vm) {
       alert('Please configure the custom VM options by specifying at least one of the following: CDROM, Floppy Disk, HDA in the input fields below.');
       return;
     }
-    window.open('https://vm.davidfahim.repl.co/launch?type=Custom&ram=' + String(ram) + '&vram=' + String(vram) + '&cd=' + String(cd) + '&floppy=' + String(floppy) + '&hd=' + String(hd) + '&acpi=' + String(acpiEnabled) + '&async=' + String(asyncEnabled) + '&relay=' + String(networkRelay), '_blank');
+    window.open('https://webvm.replit.app/launch.html?type=Custom&ram=' + String(ram) + '&vram=' + String(vram) + '&cd=' + String(cd) + '&floppy=' + String(floppy) + '&hd=' + String(hd) + '&acpi=' + String(acpiEnabled) + '&async=' + String(asyncEnabled) + '&relay=' + String(networkRelay), '_blank');
   }
   else {
-    window.location.assign('https://vm.davidfahim.repl.co/launch?type=' + vm + '&ram=' + String(ram) + '&vram=' + String(vram) + '&acpi=' + String(acpiEnabled) + '&async=' + String(asyncEnabled) + '&relay=' + String(networkRelay));
+    window.location.assign('https://webvm.replit.app/launch.html?type=' + vm + '&ram=' + String(ram) + '&vram=' + String(vram) + '&acpi=' + String(acpiEnabled) + '&async=' + String(asyncEnabled) + '&relay=' + String(networkRelay));
   }
 }
 

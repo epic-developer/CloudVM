@@ -78,7 +78,7 @@ window.onload = function() {
 
                 if (VMs[type] == null) {
                     alert(type + ' is not a valid VM. Press OK to return to the launcher.');
-                    window.open('https://vm.davidfahim.repl.co/', '_top');
+                    window.open('https://webvm.repl.app/', '_top');
                 }
 
                 const vm = VMs[type];

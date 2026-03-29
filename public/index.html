@@ -18,6 +18,15 @@
 	<meta name="keywords" content="Virtual Machines, VM, Virtualization, Emulation, OS, Operating System">
 	<meta name="author" content="David Fahim">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-86Y3PB59B9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-86Y3PB59B9');
+  </script>
 </head>
 
 <body bgcolor="#00000" style="padding-left:5%;padding-right:5%">
@@ -78,12 +87,15 @@
       <div style="width:50%;float:right">
         <span style="font-family:Orbitron;color:white;font-size:160%">VRAM (Video Memory; MB):</span>
         <br>
-        <input type="number" id="vram" placeholder="Default: 128 MB" value="128" step="8" min="8" max="256">
+        <input type="number" id="vram" placeholder="Default: 64 MB" value="64" step="8" min="8" max="128">
       </div>
     </div>
     <div style="clear:both"></div>
     <br>
     <br>
+	<br>
+	<span style="font-family:Orbitron;color:red;font-size:140%">CORS is required. Enable CORS with this Chrome extension: <a href="https://chromewebstore.google.com/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf" target="_blank">Allow CORS</a></span>
+	<br>
     <br>
     <hr>
     <span style="font-family:Orbitron;color:lime;font-size:180%">Launch Operating System Preset</span>
@@ -111,6 +123,10 @@
     <button onclick="launch('Linux 3')" onmouseover="displayDetails('Linux 3')" onmouseleave="removeDetails()">Linux 3 Kernel</button>
     <button onclick="launch('Linux 4')" onmouseover="displayDetails('Linux 4')" onmouseleave="removeDetails()">Linux 4 Kernel</button>
     <button onclick="launch('FreeBSD')" onmouseover="displayDetails('FreeBSD')" onmouseleave="removeDetails()">FreeBSD</button>
+    <br>
+    <button onclick="launch('Porteus')" onmouseover="displayDetails('Porteus')" onmouseleave="removeDetails()">Porteus</button>
+    <button onclick="launch('antiX')" onmouseover="displayDetails('antiX')" onmouseleave="removeDetails()">AntiX</button>
+    <button onclick="launch('ArchBang')" onmouseover="displayDetails('ArchBang')" onmouseleave="removeDetails()">ArchBang</button>
     <br>
     <button onclick="launch('Alpine Linux')" onmouseover="displayDetails('Alpine Linux')" onmouseleave="removeDetails()">Alpine Linux [MODERATE]</button>
     <button onclick="launch('Tiny Core Linux')" onmouseover="displayDetails('Tiny Core Linux')" onmouseleave="removeDetails()">Tiny Core Linux [ULTRAFAST]</button>
